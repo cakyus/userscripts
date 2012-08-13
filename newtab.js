@@ -6,23 +6,23 @@
 // @author         "Yus Uf" <cakyus@gmail.com>
 // @description    Enhance your newTab experience
 // @include        about:blank
-// @run-at         document-end
+// @run-at         document-start
 // ==/UserScript==
 
-//@todo use window.Storage to save bookmarks
-
-newtab();
+if (window.addEventListener) {  
+	window.addEventListener('load', newtab, false);
+}
 
 function newtab() {
 	var style = new newtabStyle;
 	// add container
 	var div = document.createElement('div');
 	div.id = 'container';
-	document.body.appendChild(div);
-	
-	window.localStorage.setItem('newtab.bookmark.1.caption', 'Google+');
-	window.localStorage.setItem('newtab.bookmark.1.location', 'https://plus.google.com');
-	
+	document.body.appendChild(div);	
+	newtabLoad();
+}
+
+function newtabLoad() {
 	// add bookmarks
 	for (i=0; i<9; i++) {
 		var bookmark = new newtabBookmark;
@@ -38,7 +38,7 @@ function newtab() {
 		}
 		bookmark.href = bookmarkLocation;
 		bookmark.show();
-	}
+	}		
 }
 
 function newtabStyle() {
@@ -62,6 +62,13 @@ function newtabStyle() {
 	head.appendChild(style);	
 }
 
+function newtabGotoLocation(bookmarkId) {
+	var bookmarkLocation = window.localStorage.getItem(bookmarkId+'.location');
+	if (bookmarkLocation != null && bookmarkLocation != '') {
+		document.location.href= bookmarkLocation;
+	}
+}
+
 function newtabBookmark() {
 	
 	this.caption = 'Untitled';
@@ -76,11 +83,12 @@ function newtabBookmark() {
 		container.appendChild(divContainer);
 				
 		var divCaption = document.createElement('div');
+		divCaption.bookmarkId = this.bookmarkId;
 		divCaption.innerHTML = this.caption;
 		divCaption.className = 'caption';
 		divCaption.href = this.href;
 		divCaption.addEventListener('click', function() {
-			document.location.href = this.href;
+			newtabGotoLocation(this.bookmarkId);
 		}, false);
 		divContainer.appendChild(divCaption);
 		
@@ -91,23 +99,38 @@ function newtabBookmark() {
 		divContainer.appendChild(divToolbar);
 		
 		var divButtonEdit = document.createElement('button');
+		divButtonEdit.bookmarkId = this.bookmarkId;
+		divButtonEdit.href = this.href;
 		divButtonEdit.className = 'button';
 		divButtonEdit.innerHTML = 'edit';
 		divButtonEdit.type = 'button';
-		divButtonEdit.bookmarkId = this.bookmarkId;
 		divButtonEdit.addEventListener('click', function() {
 			var bookmarkLocation = prompt('Location');
-			var bookmarkCaption = prompt('Title');
+			var bookmarkCaption = prompt('Caption');
+			if (	bookmarkLocation != null 
+				&&	bookmarkLocation != ''
+				&&	bookmarkCaption != null
+				&&	bookmarkCaption != ''
+				) {
+				window.localStorage.setItem(this.bookmarkId+'.location', bookmarkLocation);
+				window.localStorage.setItem(this.bookmarkId+'.caption', bookmarkCaption);
+				window.location.reload();
+			}
 		}, true);
 		divToolbar.appendChild(divButtonEdit);
 		
 		var divButtonClear = document.createElement('button');
+		divButtonClear.bookmarkId = this.bookmarkId;
 		divButtonClear.className = 'button';
 		divButtonClear.innerHTML = 'clear';
 		divButtonClear.type = 'button';
+		divButtonClear.addEventListener('click', function() {
+			window.localStorage.setItem(this.bookmarkId+'.location', '');
+			window.localStorage.setItem(this.bookmarkId+'.caption', '');
+			window.location.reload();
+		}, true);
 		divToolbar.appendChild(divButtonClear);
 		
 		return divContainer;
 	}
 }
-

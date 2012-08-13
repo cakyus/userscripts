@@ -1,3 +1,22 @@
+// NewTab.js
+// Copyright (c) 2010-2012, Yus Uf
+// Released under the GPL license
+// http://www.gnu.org/copyleft/gpl.html
+//
+// --------------------------------------------------------------------
+//
+// This is a Greasemonkey user script.
+//
+// To install, you need Greasemonkey: http://www.greasespot.net/
+// Then restart Firefox and revisit this script.
+// Under Tools, there will be a new menu item to "Install User Script".
+// Accept the default configuration and install.
+//
+// To uninstall, go to Tools/Manage User Scripts,
+// select "NewTab.js", and click Uninstall.
+//
+// --------------------------------------------------------------------
+//
 // ==UserScript==
 // @id             66ffbb8e-dc41-4b3d-9a62-2bcc88d07de4
 // @name           NewTab.js

@@ -6,6 +6,6 @@
 // @version        0.1
 // @license        http://www.gnu.org/licenses/gpl-3.0.txt
 // @include        http://www.google.com/reader/i/*
-// @updateURL      https://raw.github.com/cakyus/userscripts/master/ggrm.user.js
+// @updateURL      https://raw.github.com/cakyus/userscripts/master/ggrm.meta.js
 // @run-at         document-end
 // ==/UserScript==

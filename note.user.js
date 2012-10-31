@@ -9,21 +9,29 @@
 // @run-at         document-end
 // ==/UserScript==
 
-var oHead = document.getElementsByTagName('head')[0];
+// == GreaseMonkey Compatibility
+
+if (typeof GM_addStyle != 'function'){
+	function GM_addStyle(textContent) {
+		var oHead = document.getElementsByTagName('head')[0];
+		var oStyle = document.createElement('style');
+		oStyle.type = 'text/css';
+		oStyle.textContent =
+			  'body {margin: 5px auto; text-align: center; }'
+			+ 'body {background-image: -moz-radial-gradient(left top, ellipse farthest-side, #FCFFFD 0%, #B1EFBB 80%);}'
+			+ '#note-content { width: 65%; height: 90%;}'
+			+ '#note-content { padding: 10px; border: 1px solid #ddd; }'
+			+ '#note-content { font-family: Monospace, Consolas; font-size: x-large;}'
+			+ '#command-show { font-size: large; margin-bottom: 10px;}'
+			;
+		oHead.appendChild(oStyle);
+	}	
+}
+
 var oBody = document.getElementsByTagName('body')[0];
 
 // add style
-var oStyle = document.createElement('style');
-oStyle.type = 'text/css';
-oStyle.textContent =
-	  'body {margin: 5px auto; text-align: center; }'
-	+ 'body {background-image: -moz-radial-gradient(left top, ellipse farthest-side, #FCFFFD 0%, #B1EFBB 80%);}'
-	+ '#note-content { width: 65%; height: 90%;}'
-	+ '#note-content { padding: 10px; border: 1px solid #ddd; }'
-	+ '#note-content { font-family: Monospace, Consolas; font-size: x-large;}'
-	+ '#command-show { font-size: large; margin-bottom: 10px;}'
-	;
-oHead.appendChild(oStyle);
+GM_addStyle();
 
 var oCommandButtons = document.createElement('div');
 oCommandButtons.id = 'command-buttons';

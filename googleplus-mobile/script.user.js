@@ -31,14 +31,14 @@
 // 2013-03-12 [feature] hide comments completely in circle page
 // 2013-03-13 [feature] circle page >> post item >> user link : open link in new window
 // 2013-03-13 [feature] circle page >> post item >> links : open link in new window
+// 2013-03-13 [bugfix] latest comments won't hide in circles page
 
 // TODO
-// @todo [bugfix] lastest comments won't hide in each circles page
-// @todo [bugfix] there are two posts which are not separated
-// @todo [feature] apply theme on user profile >> about page
-// @todo [feature] apply theme on user profile >> album page
-// @todo [feature] keyboard shortcut
-// @todo [feature] save sidebar content in localStorage
+// [bugfix] there are two posts which are not separated
+// [feature] apply theme on user profile >> about page
+// [feature] apply theme on user profile >> album page
+// [feature] keyboard shortcut
+// [feature] save sidebar content in localStorage
 
 $(document).ready(function(){
 
@@ -52,8 +52,8 @@ $(document).ready(function(){
     GM_addStyle('body { background-color: #D4DDF0 ; width: 58%; margin-left: 10px; } .xFZOtc { background-color: #FFF; margin-top: 10px; font-size: 20px; font-family: Ubuntu Condensed; } .VSlytb { border-top: 1px solid #DDD; padding-bottom: 10px;} .jfc, .MQtqDc, .VSlytb { display: none; } div#23 img { width: 20%; padding: 10px; } .sidebar { position: fixed; top: 0px; right: 2px; min-height: 100px; background-color: #fff; min-width: 200px; padding:10px; } .sidebar a { color: #000; display: block; padding: 5px; } .sidebar a:hover { background-color: #DDD; } .sidebar h2 { padding: 0px; } .menu-item { display: block; padding: 5px 10px; }');
 
     // style for post detail
-    if (location.href.match('https://plus.google.com/app/basic/stream/') == null){
-        GM_addStyle('.VSlytb { display: none; }');
+    if (location.href.match('/stream/[a-z0-9]{35,35}') != null){
+        GM_addStyle('.VSlytb { display: block; }');
     }
 
     // user about page

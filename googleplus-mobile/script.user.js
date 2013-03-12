@@ -28,6 +28,7 @@
 // CHANGES
 // 2013-03-11 [feature] show circles list at right sidebar
 // 2013-03-12 [feature] add link to desktop version in user about page
+// 2013-03-12 [feature] hide comments completely in circle page
 
 // TODO
 // @todo [bugfix] lastest comments won't hide in each circles page
@@ -46,7 +47,7 @@ $(document).ready(function(){
     // .jqF9Bc  comment button at the bottom of post item
     // #23 img  images in post item content
 
-    GM_addStyle('body { background-color: #D4DDF0 ; width: 58%; margin-left: 10px; } .xFZOtc { background-color: #FFF; margin-top: 10px; font-size: 20px; font-family: Ubuntu Condensed; } .VSlytb { border-top: 1px solid #DDD; padding-bottom: 10px;} .jfc, .MQtqDc { display: none; } div#23 img { width: 20%; padding: 10px; } .sidebar { position: fixed; top: 0px; right: 2px; min-height: 100px; background-color: #fff; min-width: 200px; padding:10px; } .sidebar a { color: #000; display: block; padding: 5px; } .sidebar a:hover { background-color: #DDD; } .sidebar h2 { padding: 0px; } .menu-item { display: block; padding: 5px 10px; }');
+    GM_addStyle('body { background-color: #D4DDF0 ; width: 58%; margin-left: 10px; } .xFZOtc { background-color: #FFF; margin-top: 10px; font-size: 20px; font-family: Ubuntu Condensed; } .VSlytb { border-top: 1px solid #DDD; padding-bottom: 10px;} .jfc, .MQtqDc, .VSlytb { display: none; } div#23 img { width: 20%; padding: 10px; } .sidebar { position: fixed; top: 0px; right: 2px; min-height: 100px; background-color: #fff; min-width: 200px; padding:10px; } .sidebar a { color: #000; display: block; padding: 5px; } .sidebar a:hover { background-color: #DDD; } .sidebar h2 { padding: 0px; } .menu-item { display: block; padding: 5px 10px; }');
 
     // style for post detail
     if (location.href.match('https://plus.google.com/app/basic/stream/') == null){

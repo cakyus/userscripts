@@ -30,6 +30,7 @@
 // 2013-03-12 [feature] add link to desktop version in user about page
 // 2013-03-12 [feature] hide comments completely in circle page
 // 2013-03-13 [feature] circle page >> post item >> user link : open link in new window
+// 2013-03-13 [feature] circle page >> post item >> links : open link in new window
 
 // TODO
 // @todo [bugfix] lastest comments won't hide in each circles page
@@ -37,7 +38,6 @@
 // @todo [feature] apply theme on user profile >> about page
 // @todo [feature] apply theme on user profile >> album page
 // @todo [feature] keyboard shortcut
-// @todo [feature] open in new window for links in post item
 // @todo [feature] save sidebar content in localStorage
 
 $(document).ready(function(){
@@ -85,6 +85,11 @@ $(document).ready(function(){
     
     // circle page >> post item >> user link : open link in new window
     $('a.Lfc').each(function(){
+        this.target = '_blank';
+    });
+    
+    // circle page >> post item >> links : open link in new window
+    $('.qry4Ge a').each(function(){
         this.target = '_blank';
     });
 });

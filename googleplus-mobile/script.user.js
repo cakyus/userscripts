@@ -34,13 +34,13 @@
 // 2013-03-13 [bugfix] latest comments won't hide in circles page
 // 2013-03-14 [bugfix] pattern of post-item's location
 // 2013-03-14 [feature] set document title based on current circle's name
+// 2013-03-14 [feature] save sidebar content in localStorage
 
 // TODO
 // [bugfix] there are two posts which are not separated
 // [feature] apply theme on user profile >> about page
 // [feature] apply theme on user profile >> album page
 // [feature] keyboard shortcut
-// [feature] save sidebar content in localStorage
 
 $(document).ready(function(){
 
@@ -51,7 +51,7 @@ $(document).ready(function(){
     // .jqF9Bc  comment button at the bottom of post item
     // #23 img  images in post item content
 
-    GM_addStyle('body { background-color: #D4DDF0 ; width: 58%; margin-left: 10px; } .qry4Ge, .Ie0wAe, .Lfc, .CMuu5c, .OuNFwc { padding: 5px; margin: 0px; } .OuNFwc, .qry4Ge { background-color: #FFF; font-size: 20px; font-family: Ubuntu Condensed; } .OuNFwc, .Ie0wAe { width: 100%; } .CMuu5c { display:block; width: 100%; background-color: #FFF; } .VSlytb { border-top: 1px solid #DDD; padding: 5px 5px 10px 5px; width: 100%; } .jfc, .MQtqDc, .VSlytb, .gfc { display: none; } div#23 img { width: 20%; padding: 10px; } .VSlytb .Lfc { display: inline; } .sidebar { position: fixed; top: 0px; right: 2px; min-height: 100px; background-color: #fff; min-width: 200px; padding:10px; } .sidebar a { color: #000; display: block; padding: 5px; } .sidebar a:hover { background-color: #DDD; } .sidebar h2 { padding: 0px; } .menu-item { display: block; padding: 5px 10px; }');
+    GM_addStyle('a { cursor: pointer; } body { background-color: #D4DDF0 ; width: 58%; margin-left: 10px; } .qry4Ge, .Ie0wAe, .Lfc, .CMuu5c, .OuNFwc { padding: 5px; margin: 0px; } .OuNFwc, .qry4Ge { background-color: #FFF; font-size: 20px; font-family: Ubuntu Condensed; } .OuNFwc, .Ie0wAe { width: 100%; } .CMuu5c { display:block; width: 100%; background-color: #FFF; } .VSlytb { border-top: 1px solid #DDD; padding: 5px 5px 10px 5px; width: 100%; } .jfc, .MQtqDc, .VSlytb, .gfc { display: none; } div#23 img { width: 20%; padding: 10px; } .VSlytb .Lfc { display: inline; } .sidebar { position: fixed; top: 0px; right: 2px; min-height: 100px; background-color: #fff; min-width: 200px; padding:10px; } .sidebar a { color: #000; display: block; padding: 5px; } .sidebar a:hover { background-color: #DDD; } .sidebar h2 { padding: 0px; } .menu-item { display: block; padding: 5px 10px; }');
 
 	// circles page
 	var documentTitle = document.title = document.getElementById('2');
@@ -84,12 +84,23 @@ $(document).ready(function(){
     sidebar.className = 'sidebar';
     document.body.appendChild(sidebar);
     
-    var urlCircles = 'https://plus.google.com/app/basic/stream/pick?cpsid=circles';
-    $.ajax(urlCircles).done(function(data){
-        var circles = data.match(/<a href="([^<]+?)" class="MBRhg" id="51">(.+?)<\/a>/g);
-        var sidebar = document.getElementById('sidebar');
-        sidebar.innerHTML = '<h2>Circles</h2>' + circles.join('');
-    });
+    // find localStorage's item for sidebar text
+    if (localStorage['sidebar'] == undefined){
+        
+        var urlCircles = 'https://plus.google.com/app/basic/stream/pick?cpsid=circles';
+        $.ajax(urlCircles).done(function(data){
+            var circles = data.match(/<a href="([^<]+?)" class="MBRhg" id="51">(.+?)<\/a>/g);
+            var sidebar = document.getElementById('sidebar');
+            localStorage['sidebar'] = ''
+                + '<a onclick="javascript:localStorage.clear()">'
+                + 'Reload</a><h2>Circles</h2>'
+                + circles.join('')
+                ;
+            sidebar.innerHTML = localStorage['sidebar'];
+        });
+    } else{
+        sidebar.innerHTML = localStorage['sidebar'];
+    }
     
     // circle page >> post item >> user link : open link in new window
     $('a.Lfc').each(function(){

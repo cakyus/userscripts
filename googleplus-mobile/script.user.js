@@ -32,7 +32,8 @@
 // 2013-03-13 [feature] circle page >> post item >> user link : open link in new window
 // 2013-03-13 [feature] circle page >> post item >> links : open link in new window
 // 2013-03-13 [bugfix] latest comments won't hide in circles page
-// 2013-03-13 [bugfix] pattern of post-item's location
+// 2013-03-14 [bugfix] pattern of post-item's location
+// 2013-03-14 [feature] set document title based on current circle's name
 
 // TODO
 // [bugfix] there are two posts which are not separated
@@ -52,6 +53,12 @@ $(document).ready(function(){
 
     GM_addStyle('body { background-color: #D4DDF0 ; width: 58%; margin-left: 10px; } .qry4Ge, .Ie0wAe, .Lfc, .CMuu5c, .OuNFwc { padding: 5px; margin: 0px; } .OuNFwc, .qry4Ge { background-color: #FFF; font-size: 20px; font-family: Ubuntu Condensed; } .OuNFwc, .Ie0wAe { width: 100%; } .CMuu5c { display:block; width: 100%; background-color: #FFF; } .VSlytb { border-top: 1px solid #DDD; padding: 5px 5px 10px 5px; width: 100%; } .jfc, .MQtqDc, .VSlytb, .gfc { display: none; } div#23 img { width: 20%; padding: 10px; } .VSlytb .Lfc { display: inline; } .sidebar { position: fixed; top: 0px; right: 2px; min-height: 100px; background-color: #fff; min-width: 200px; padding:10px; } .sidebar a { color: #000; display: block; padding: 5px; } .sidebar a:hover { background-color: #DDD; } .sidebar h2 { padding: 0px; } .menu-item { display: block; padding: 5px 10px; }');
 
+	// circles page
+	var documentTitle = document.title = document.getElementById('2');
+	if (typeof documentTitle != null) {
+		document.title = documentTitle.textContent;
+	}
+	
     // style for post detail
     if (location.href.match('/stream/[a-z0-9]{32,}') != null){
         GM_addStyle('.VSlytb { display: block; }');
@@ -93,4 +100,5 @@ $(document).ready(function(){
     $('.qry4Ge a').each(function(){
         this.target = '_blank';
     });
+	
 });

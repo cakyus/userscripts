@@ -50,9 +50,16 @@ $(document).ready(function(){
     // .jfc     navigation bar: cirles, new post
     // .MQtqDc  detail bar at the bottom of post item
     // .jqF9Bc  comment button at the bottom of post item
+    // .CMuu5c  circles >> post item >> time and publicity
+    // .Ie0wAe  circles >> post item >> footer: [+1] [re-share] [comments]
+    // .VSlytb  page post item >> comment(s)
+    // .OuNFwc  circles >> post item >> comment of re-share-ed post
+    // .xVlxxf  user's page >> container for about and footer
+    // .DFPnde  circless >> footer >> [older]
+    
     // #23 img  images in post item content
 
-    GM_addStyle('a { cursor: pointer; } body { width: 50%; margin-left: 10%; } .qry4Ge { border-top: 1px solid #DDD; } .qry4Ge, .Ie0wAe, .Lfc, .CMuu5c, .OuNFwc { padding: 5px; margin: 0px; } .OuNFwc, .qry4Ge { background-color: #FFF; font-size: 20px; font-family: Ubuntu Condensed; } .OuNFwc, .Ie0wAe { width: 100%; } .CMuu5c { display:block; width: 100%; background-color: #FFF; } .VSlytb { border-top: 1px solid #DDD; padding: 5px 5px 10px 5px; width: 100%; } .jfc, .MQtqDc, .VSlytb, .gfc { display: none; } div#23 img { width: 20%; padding: 10px; } .VSlytb .Lfc { display: inline; } .sidebar { position: fixed; top: 0px; right: 1%; min-height: 100px; background-color: #fff; min-width: 200px; padding:10px; } .sidebar a { color: #000; display: block; padding: 5px; } .sidebar a:hover { background-color: #DDD; } .sidebar h2 { padding: 0px; } .menu-item { display: block; padding: 5px 10px; }');
+     GM_addStyle('html, body { background-color: #555;} a { cursor: pointer; } body { width: 50%; margin-left: 10%; } .qry4Ge { border-top: 1px solid #DDD; } .qry4Ge, .Ie0wAe, .Lfc, .CMuu5c, .OuNFwc { margin: 0px; } .OuNFwc, .qry4Ge, .VSlytb { font-size: 20px; font-family: Ubuntu Condensed; } .OuNFwc { font-style: italic; background-color: #CCC; } .CMuu5c { display:block; width: 100%; background-color: #CCC; } .VSlytb { border-top: 1px solid #DDD; padding: 5px 5px 10px 5px; background-color: #EEE; } .jfc, .MQtqDc, .VSlytb, .gfc { display: none; } div#23 img { width: 20%; padding: 10px; } .VSlytb .Lfc { display: inline; } .sidebar { position: fixed; top: 0px; right: 1%; min-height: 100px; background-color: #CCC; min-width: 200px; padding:10px; } .sidebar a { color: #000; display: block; padding: 5px; } .sidebar a:hover { background-color: #DDD; } .sidebar h2 { padding: 0px; } .menu-item { display: block; padding: 5px 10px; } .xFZOtc { border: 0; background-color: #CCC; }  .Ie0wAe { background-color: #CCC; border: 0; margin-bottom: 20px !important; } .xVlxxf, .DFPnde {background-color: #CCC;} .DFPnde {padding: 2px;}');
 
 	// circles page
 	var documentTitle = document.getElementById('2');
@@ -69,7 +76,7 @@ $(document).ready(function(){
     if (location.href.match('https://plus.google.com/app/basic/[0-9]+/about') != null){
         // add link to desktop version of current page
         var userId = location.href.match('https://plus.google.com/app/basic/([0-9]+)/about')[1];
-        $('.e8Z0Ie:first').append(' <a href="https://plus.google.com/u/0/' + userId + '/about" class="menu-item" target="_blank">Show on the Desktop</a>');
+        $('.Ffc:first').append(' <a href="https://plus.google.com/u/0/' + userId + '/about" class="menu-item" target="_blank">Show on the Desktop</a>');
     }
 
     // open post detail in new window when clicking comment button

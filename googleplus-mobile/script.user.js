@@ -44,6 +44,24 @@
 // [feature] keyboard shortcut
 
 $(document).ready(function(){
+    
+    // REDIRECT
+    // link to user profile in circle-add notification
+    if (location.href.match('sparm=v%3Dcircle_notification_people%26')){
+        location.href = location.href.match('http.+?[0-9]+/')[0];
+        return false;
+    }
+    
+    // circle-add notification
+    if (location.href.match(
+        /https:\/\/plus.google.com\/app\/basic\/notification\/circlepeople/
+        )){
+        $('a').each(function(){
+            if (this.href.match(/\/app\/basic\/[0-9]+/)){
+                this.target = '_blank';
+            }
+        });
+    }
 
     // .xFZOtc  post item
     // .VSlytb  comment item
@@ -69,6 +87,10 @@ $(document).ready(function(){
 	
     // style for post detail
     if (location.href.match('/stream/[a-z0-9]{32,}') != null){
+        GM_addStyle('.VSlytb { display: block; }');
+    }
+    // style for photo album detail
+    if (location.href.match('/photos/[a-z0-9]{32,}') != null){
         GM_addStyle('.VSlytb { display: block; }');
     }
 

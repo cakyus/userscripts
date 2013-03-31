@@ -36,6 +36,7 @@
 // 2013-03-14 [feature] set document title based on current circle's name
 // 2013-03-14 [feature] save sidebar content in localStorage
 // 2013-03-15 [bugfix] assigning document title to unverified object
+// 2013-03-31 [feature] add links to add-circles in user-about page
 
 // TODO
 // [bugfix] there are two posts which are not separated
@@ -98,7 +99,7 @@ $(document).ready(function(){
     if (location.href.match('https://plus.google.com/app/basic/[0-9]+/about') != null){
         // add link to desktop version of current page
         var userId = location.href.match('https://plus.google.com/app/basic/([0-9]+)/about')[1];
-        $('.Ffc:first').append(' <a href="https://plus.google.com/u/0/' + userId + '/about" class="menu-item" target="_blank">Show on the Desktop</a>');
+        $('.Ffc:first').append(' <a href="https://plus.google.com/u/0/' + userId + '/about" class="menu-item" target="_blank">Show on the Desktop</a> <a href="https://plus.google.com/app/basic/' + userId + '/add" class="menu-item" target="_blank">Circles</a> ');
     }
 
     // open post detail in new window when clicking comment button

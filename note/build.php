@@ -27,7 +27,7 @@ function build() {
 
     $match = array();
     $fileMainContent = file_get_contents($fileMainPath);
-
+    
     // process include('<file>')
     $fileMainContent = preg_replace_callback(
         "/include\('([^']+)'\)/"
@@ -44,13 +44,47 @@ function build_callback_include($match) {
     // @todo include javascript code
     
     $file = $match[1];
+    $content = file_get_contents($file);
     
-    $fileContent = file_get_contents($file);
+    if (preg_match("/[^\.]+$/", $file, $match)) {
+        $extension = $match[0];
+        if ($extension == 'css') {
+            $content = build_callback_include_css($content);
+        } elseif ($extension == 'html') {
+            $content = build_callback_include_html($content);
+        } else {
+            throw new \Exception("Unsupported file extension");
+        }
+    }
+
+    // parse as string
+    $content = "'".$content."'";
+    
+    return $content;
+}
+
+function build_callback_include_css($content) {
+    
     // replace new line, tab, etc.
     // javascript does not support multiline string
-    $fileContent = preg_replace("/\s+/", " ", $fileContent);
-    // parse as string
-    $fileContent = "'".$fileContent."'";
     
-    return $fileContent;
+    $content = preg_replace("/\s+/", " ", $content);    
+    $content = trim($content);    
+    return $content;    
+}
+
+function build_callback_include_html($content) {
+
+    if (preg_match(
+          "/<html>.+<body>(.+)<\/body>.+<\/html>/s"
+        , $content
+        , $match)) {
+        $content = $match[1];
+        $content = preg_replace("/>\s+</", "><", $content);    
+        $content = trim($content);    
+        return $content;    
+    } else {
+        throw new \Exception("Invalid html content");
+    }
+    
 }

@@ -25,14 +25,21 @@
 
 (function(){
 
-    this.addStyle = function(css) {
+    // append style to document
+    this.addStyle = function(content) {
         var oHead = document.getElementsByTagName('head')[0];
         var oStyle = document.createElement('style');
         oStyle.type = 'text/css';
-        oStyle.textContent = css;
+        oStyle.textContent = content;
         oHead.appendChild(oStyle);
     }
     
+    // set html content of <body> .. </body>
+    this.setHTML = function(content) {
+        document.body.innerHTML = content;
+    }
+    
     this.addStyle(include('style.css'));
+    this.setHTML(include('index.html'));
 
 })();

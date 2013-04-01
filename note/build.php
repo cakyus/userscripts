@@ -80,7 +80,11 @@ function build_callback_include_html($content) {
         , $content
         , $match)) {
         $content = $match[1];
-        $content = preg_replace("/>\s+</", "><", $content);    
+        $content = preg_replace(
+             array("/>\s+/", "/\s+</")
+            ,array(">", "<")
+            ,$content
+            );    
         $content = trim($content);    
         return $content;    
     } else {

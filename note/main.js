@@ -25,6 +25,44 @@
 
 (function(){
 
+    // underscore framework
+    function _(selector) {
+        
+        var elements = [];
+        
+        // getElementById
+        var match = selector.match('^#(.+)$');
+        if (match != null){
+            elements.push(document.getElementById(match[1]));
+        }
+        
+        // getElementsByTagName
+        var match = selector.match('^([a-z]+)$');
+        if (match != null){
+            var items = document.getElementsByTagName(match[1]);
+            for (var i = 0; i < items.length; i++){
+                elements.push(items[i]);
+            }
+        }
+        
+        // getElementsByClassName
+        var match = selector.match('^\.(.+)$');
+        if (match != null){
+            var items = document.getElementsByClassName(match[1]);
+            for (var i = 0; i < items.length; i++){
+                elements.push(items[i]);
+            }
+        }
+        
+        return {
+            'each': function(callback) {
+                for (var i = 0; i < elements.length; i++) {
+                    callback.call(elements[i]);
+                }
+            }
+            };
+    };
+    
     // append style to document
     this.addStyle = function(content) {
         var oHead = document.getElementsByTagName('head')[0];
@@ -38,31 +76,51 @@
     this.setHTML = function(content) {
         document.body.innerHTML = content;
     };
-    
-    this.getElements = function(selector) {
-        
-        var elements = [];
-        
-        // getElementById
-        var matchId = selector.match('^#(.+)$');
-        if (matchId != null){
-            elements.push(document.getElementById(matchId[1]));
-        }
-        
-        return {
-            'each': function(callback) {
-                for (var i = 0; i < elements.length; i++) {
-                    callback.call(elements[i]);
-                }
-            }
-            };
-    };
-    
     this.addStyle(include('style.css'));
     this.setHTML(include('index.html'));
     
-    this.getElements('#commandShowHTML').each(function() {
-            console.log(this);
+    _('#commandShowText').each(function() {
+        this.addEventListener('click', function() {
+            _('article').each(function(){
+                this.style.display = 'none';
+            });
+            _('#article-text').each(function(){
+                this.style.display = 'block';
+            });
         });
+    });
+    
+    _('#commandShowHTML').each(function() {
+        this.addEventListener('click', function() {
+            _('article').each(function(){
+                this.style.display = 'none';
+            });
+            _('#article-html').each(function(){
+                this.style.display = 'block';
+            });
+        });
+    });
+    
+    _('#commandShowView').each(function() {
+        this.addEventListener('click', function() {
+            _('article').each(function(){
+                this.style.display = 'none';
+            });
+            _('#article-view').each(function(){
+                this.style.display = 'block';
+            });
+        });
+    });
+    
+    _('#commandShowHelp').each(function() {
+        this.addEventListener('click', function() {
+            _('article').each(function(){
+                this.style.display = 'none';
+            });
+            _('#article-help').each(function(){
+                this.style.display = 'block';
+            });
+        });
+    });
     
 })();

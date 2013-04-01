@@ -3,17 +3,26 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <div id="container">
-            <nav>
-                <ul>
-                    <li><a id="commandShowText" href="#">Text</a></li>
-                    <li><a id="commandShowHTML" href="#">HTML</a></li>
-                    <li><a id="commandShowView" href="#">View</a></li>
-                    <li><a id="commandShowHelp" href="#">Help</a></li>
-                </ul>
-            </nav>
-            <textarea id="content"></textarea>
-        </div>
+        <nav>
+            <ul>
+                <li><a id="commandShowText" href="#">Text</a></li>
+                <li><a id="commandShowHTML" href="#">HTML</a></li>
+                <li><a id="commandShowView" href="#">View</a></li>
+                <li><a id="commandShowHelp" href="#">Help</a></li>
+            </ul>
+        </nav>
+        <section class="posts">
+            <article id="article-text">
+                <textarea id="text-content"></textarea>
+            </article>
+            <article id="article-html">
+                <textarea id="html-content"></textarea>
+            </article>
+            <article id="article-view"></article>
+            <article id="article-help">
+                Under construction.
+            </article>
+        </section>
     </body>
     <script src="script.user.js"></script>
 </html>

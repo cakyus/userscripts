@@ -33,6 +33,12 @@ nav ul li a:hover {
     background-color: #CCC;
 }
 
+textarea {
+    font-family: Liberation Mono;
+    font-size: 20px;
+    padding: 5px;
+}
+
 #text-content
 , #html-content
 {
@@ -40,9 +46,9 @@ nav ul li a:hover {
     height: 90%;
 }
 
-article#html
-, article#view
-, article#help
+article#article-html
+, article#article-view
+, article#article-help
 {
     display: none;
 }

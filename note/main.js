@@ -32,14 +32,37 @@
         oStyle.type = 'text/css';
         oStyle.textContent = content;
         oHead.appendChild(oStyle);
-    }
+    };
     
     // set html content of <body> .. </body>
     this.setHTML = function(content) {
         document.body.innerHTML = content;
-    }
+    };
+    
+    this.getElements = function(selector) {
+        
+        var elements = [];
+        
+        // getElementById
+        var matchId = selector.match('^#(.+)$');
+        if (matchId != null){
+            elements.push(document.getElementById(matchId[1]));
+        }
+        
+        return {
+            'each': function(callback) {
+                for (var i = 0; i < elements.length; i++) {
+                    callback.call(elements[i]);
+                }
+            }
+            };
+    };
     
     this.addStyle(include('style.css'));
     this.setHTML(include('index.html'));
-
+    
+    this.getElements('#commandShowHTML').each(function() {
+            console.log(this);
+        });
+    
 })();

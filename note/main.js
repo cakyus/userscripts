@@ -61,8 +61,23 @@
                 }
             },
             'html': function(text) {
+                
+                if (text == undefined){
+                    return elements[0].innerHTML;
+                }
+                
                 for (var i = 0; i < elements.length; i++) {
                     elements[i].innerHTML = text;
+                }
+            },
+            'click': function(callback) {
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].addEventListener('click', callback);
+                }
+            },
+            'css': function(name, value) {
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].style.setProperty(name, value);
                 }
             }
         };
@@ -81,49 +96,34 @@
     this.setHTML = function(content) {
         document.body.innerHTML = content;
     };
+    
     this.addStyle(include('style.css'));
     this.setHTML(include('index.html'));
     
-    _('#commandShowText').each(function() {
-        this.addEventListener('click', function() {
-            _('article').each(function(){
-                this.style.display = 'none';
-            });
-            _('#article-text').each(function(){
-                this.style.display = 'block';
-            });
-        });
+    _('#commandShowText').click(function() {
+        _('article').css('display','none');
+        _('#article-text').css('display','block');
     });
     
-    _('#commandShowHTML').each(function() {
-        this.addEventListener('click', function() {
-            _('article').each(function(){
-                this.style.display = 'none';
-            });
-            _('#article-html').each(function(){
-                this.style.display = 'block';
-            });
-        });
+    _('#commandShowHTML').click(function() {
+        _('article').css('display','none');
+        _('#article-html').css('display','block');
     });
     
-    _('#commandShowView').each(function() {
-        this.addEventListener('click', function() {
-            _('article').each(function(){
-                this.style.display = 'none';
-            });
-            _('#article-view').each(function(){
-                this.style.display = 'block';
-            });
-        });
+    _('#commandShowView').click(function() {
+        _('article').css('display','none');
+        _('#article-view').css('display','block');
     });
     
-    _('#commandShowHelp').each(function() {
-        this.addEventListener('click', function() {
-            _('article').each(function(){
-                this.style.display = 'none';
-            });
-            _('#article-help').each(function(){
-                this.style.display = 'block';
+    _('#commandShowHelp').click(function() {
+        _('article').css('display','none');
+        _('#article-help').css('display','block');
+    });
+    
+    _('#text-content').each(function(){
+        this.addEventListener('keyup', function() {
+            _('#text-content').each(function(){
+                console.log(this.value);
             });
         });
     });

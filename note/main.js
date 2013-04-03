@@ -148,14 +148,15 @@
         ,'prefixLength': 38
         ,'textOriginal': null
         ,'open': function() {
-            this.textOriginal = _(this.elementId).html();
-            _(this.elementId).html(unescape(
+            
+            var textOriginal = unescape(
                 location.hash.substring(this.prefixLength)
-                ));
-            _(this.elementId).each(function(){
-                this.addEventListener('keyup', function() {
-                    Note.set();
-                });
+                );
+                
+            _(this.elementId).html(textOriginal);
+            this.textOriginal = textOriginal;
+            _(this.elementId)[0].addEventListener('keyup', function() {
+                Note.set();
             });
         }
         ,'set': function() {

@@ -54,33 +54,56 @@
             }
         }
         
-        return {
-            'each': function(callback) {
-                for (var i = 0; i < elements.length; i++) {
-                    callback.call(elements[i]);
-                }
-            },
-            'html': function(text) {
+        // add additional function to resulting array
+        
+        elements['html'] = function(text) {
                 
-                if (text == undefined){
-                    return elements[0].innerHTML;
-                }
-                
-                for (var i = 0; i < elements.length; i++) {
-                    elements[i].innerHTML = text;
-                }
-            },
-            'click': function(callback) {
-                for (var i = 0; i < elements.length; i++) {
-                    elements[i].addEventListener('click', callback);
-                }
-            },
-            'css': function(name, value) {
-                for (var i = 0; i < elements.length; i++) {
-                    elements[i].style.setProperty(name, value);
-                }
+            if (text == undefined){
+                return elements[0].innerHTML;
+            }
+            
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].innerHTML = text;
             }
         };
+
+        elements['each'] = function(callback) {
+            for (var i = 0; i < elements.length; i++) {
+                callback.call(elements[i]);
+            }
+        };
+            
+        elements['html'] = function(text) {
+            
+            if (text == undefined){
+                return elements[0].innerHTML;
+            }
+            
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].innerHTML = text;
+            }
+        };
+        
+        elements['value'] = function(text) {
+            
+            if (text == undefined){
+                return elements[0].value;
+            }
+        };
+        
+        elements['click'] = function(callback) {
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].addEventListener('click', callback);
+            }
+        };
+        
+        elements['css'] = function(name, value) {
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].style.setProperty(name, value);
+            }
+        };
+        
+        return elements;
     };
     
     // append style to document
@@ -120,12 +143,31 @@
         _('#article-help').css('display','block');
     });
     
-    _('#text-content').each(function(){
-        this.addEventListener('keyup', function() {
-            _('#text-content').each(function(){
-                console.log(this.value);
+    var Note = {
+         'elementId': '#text-content'
+        ,'prefixLength': 38
+        ,'textOriginal': null
+        ,'open': function() {
+            this.textOriginal = _(this.elementId).html();
+            _(this.elementId).html(unescape(
+                location.hash.substring(this.prefixLength)
+                ));
+            _(this.elementId).each(function(){
+                this.addEventListener('keyup', function() {
+                    Note.set();
+                });
             });
-        });
-    });
+        }
+        ,'set': function() {
+            location.hash = location.hash.substring(0,this.prefixLength)
+                + _(this.elementId).value()
+                ;
+        }
+        ,'get': function() {
+            return _(this.elementId).value();
+        }
+    };
+    
+    Note.open();
     
 })();
